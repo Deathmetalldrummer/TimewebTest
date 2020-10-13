@@ -12,3 +12,8 @@ export default {
   })
 }
 </script>
+<style lang="sass">
+@import "assets/sass/variable"
+@import "assets/sass/mixin"
+@import "assets/sass/global"
+</style>
