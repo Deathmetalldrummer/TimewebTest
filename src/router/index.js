@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import SiteList from '../views/SiteList'
+import PageList from '../views/PageList'
+import PageGenerator from '../views/PageGenerator'
 
 Vue.use(VueRouter)
 
@@ -9,6 +12,21 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/projects',
+    name: 'projects',
+    component: SiteList
+  },
+  {
+    path: '/project/:id',
+    name: 'project',
+    component: PageList
+  },
+  {
+    path: '/page/:id',
+    name: 'PageGenerator',
+    component: PageGenerator
   }
 ]
 
