@@ -1,7 +1,7 @@
 <template lang="pug">
   div
     h1 Vue
-    router-link(tag='a' :to="{name: 'projects'}") К списку сайтов
+    router-link(tag='a' :to="{name: 'projects'}") To site list
 </template>
 
 <script>

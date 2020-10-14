@@ -1,12 +1,16 @@
 <template lang="pug">
     div
       header.header
-        v-btn(color="green" dark).ma-1 Save
-        v-btn(color="yellow" dark).ma-1 Save & Exit
-        v-spacer
-        v-btn(color="black" dark @click="addBlock()").ma-1 Add block
-        v-spacer
-        v-btn(color="red" dark).ma-1 Exit
+        .header__.text-left
+          v-btn(text @click="back()")
+            v-icon mdi-arrow-left
+            span.ml-2 Back
+          v-btn(color="light-green accent-3" outlined @click="save()").ma-1 Save
+          v-btn(color="yellow accent-4" outlined @click="saveAndExit()").ma-1 Save & Exit
+        .header__.text-center
+          v-btn(color="black" dark @click="addBlock()").ma-1 Add block
+        .header__.text-right
+          v-btn(color="red accent-4" outlined @click="exit()").ma-1 Exit
       section.choice
         v-radio-group.choice__(v-model="choiceBlock" row)
           v-radio(v-for="(item, index) in blocksName" :key="index" :label="item" color="red" :value="item")
@@ -21,7 +25,7 @@
               v-icon mdi-arrow-down
             v-btn(color="black" dark icon @click="swap(index, -1)").control__.control__up
               v-icon mdi-arrow-up
-          component(:is="item")
+          component(:is="item.name" @v-changed="item.data = $event, log($event, item)")
       .text-center
         v-btn(color="black" dark @click="addBlock()").ma-1.align-center Add block
 </template>
@@ -40,12 +44,19 @@ export default {
     }
   },
   computed: {
-    id () { return this.$route.params.id }
+    projectID () { return this.$route.params.projectID },
+    pageID () { return this.$route.params.pageID }
   },
   methods: {
+    back () {
+      this.$router.push({ name: 'project', params: { projectID: this.projectID.toString() } })
+    },
     addBlock () {
       if (this.choiceBlock) {
-        this.blocks.push(this.choiceBlock)
+        this.blocks.push({
+          name: this.choiceBlock,
+          data: null
+        })
       }
     },
     swap (index, step) {
@@ -71,6 +82,19 @@ export default {
         item,
         ...last
       ]
+    },
+    save () {
+      const xxx = setInterval(() => {
+        console.log('save')
+      }, 1000)
+      setTimeout(() => { clearInterval(xxx) }, 5000)
+    },
+    saveAndExit () {
+      this.save()
+      this.exit()
+    },
+    exit () {
+      this.back()
     }
   }
 }
@@ -82,7 +106,8 @@ export default {
   flex-flow: row nowrap
   align-items: center
   border-bottom: 1px solid #ccc
-
+  &__
+    width: (100%/3)
 .blocks
   border-bottom: 1px solid #ccc
 .blocks__

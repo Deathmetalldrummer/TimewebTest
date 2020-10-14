@@ -19,12 +19,12 @@ const routes = [
     component: SiteList
   },
   {
-    path: '/project/:id',
+    path: '/project/:projectID',
     name: 'project',
     component: PageList
   },
   {
-    path: '/page/:id',
+    path: '/project/:projectID/page/:pageID',
     name: 'PageGenerator',
     component: PageGenerator
   }
