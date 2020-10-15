@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-app#app
+  v-app#app(v-if="globalLoading")
     Auth(v-if="!isAuth")
     router-view(v-else)
 </template>
@@ -16,7 +16,9 @@ export default {
     //
   }),
   computed: {
-    isAuth () { return !!this.$store.getters.currentUser }
+    isAuth () { return !!this.$store.getters.currentUser },
+    globalLoading () { return !this.$store.getters.globalLoading }
+
   }
 }
 </script>

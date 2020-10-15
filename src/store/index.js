@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import authStore from './auth'
+import loading from './loading'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 Vue.use(Vuex)
@@ -85,14 +86,16 @@ export default new Vuex.Store({
       })
     },
     loadContent: state => {
-      firebase.firestore().collection('Users').doc(state.getters.currentUser).get().then(respond => {
+      return firebase.firestore().collection('Users').doc(state.getters.currentUser).get().then(respond => {
         state.dispatch('sites', respond.data().sites)
+        state.dispatch('globalLoading', false)
       }).catch(error => {
         console.log(error)
       })
     }
   },
   modules: {
-    authStore
+    authStore,
+    loading
   }
 })

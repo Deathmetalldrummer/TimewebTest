@@ -29,9 +29,10 @@ new Vue({
         if (user) {
           store.dispatch('currentUser', user.uid)
           store.dispatch('loadContent')
+        } else {
+          store.dispatch('globalLoading', false)
         }
       }
     )
-    router.push('/').catch(() => {})
   }
 }).$mount('#app')
