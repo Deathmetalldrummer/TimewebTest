@@ -8,8 +8,11 @@
           v-btn(color="light-green accent-3" outlined @click="save()").ma-1 Save
           v-btn(color="yellow accent-4" outlined @click="saveAndExit()").ma-1 Save & Exit
         .header__.text-center
-          v-btn(color="black" dark @click="addBlock()").ma-1 Add block
+          v-btn(color="black" dark @click="addBlock()").ma-1
+            v-icon mdi-plus
+            span.ml-1 Add block
         .header__.text-right
+          v-btn(color="blue accent-2" outlined @click="view()").ma-1 View
           v-btn(color="red accent-4" outlined @click="exit()").ma-1 Exit
       section.choice
         v-radio-group.choice__(v-model="choiceBlock" row)
@@ -27,7 +30,9 @@
               v-icon mdi-arrow-up
           component(:is="item.name" @v-changed="item.data = $event")
       .text-center
-        v-btn(color="black" dark @click="addBlock()").ma-1.align-center Add block
+        v-btn(color="black" dark @click="addBlock()").ma-1
+          v-icon mdi-plus
+          span.ml-1 Add block
 </template>
 
 <script>
@@ -100,6 +105,9 @@ export default {
     },
     exit () {
       this.back()
+    },
+    view () {
+      this.$router.push({ name: 'View', params: { projectID: this.projectID.toString(), pageID: this.pageID.toString() } })
     }
   }
 }
