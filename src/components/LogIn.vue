@@ -2,13 +2,13 @@
   v-form(ref='form' v-model='valid' lazy-validation)
     v-text-field(v-model='email' :rules='emailRules' label='E-mail' required)
     v-text-field(v-model='password' :rules='passwordRules' label='Password' required
-    :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
-      @click:append="showPass = !showPass"
-      :type="showPass ? 'text' : 'password'"
-    )
-    v-btn(color='error' @click='reset') Reset Form
+      :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
+        @click:append="showPass = !showPass"
+        :type="showPass ? 'text' : 'password'"
+      )
+    v-btn(color='error' @click='reset').ma-1 Reset Form
     //v-btn(color='warning' @click='resetValidation') Reset Validation
-    v-btn(color='default' :disabled='!valid' @click="login") Login
+    v-btn(color='default' :disabled='!valid' @click="login").ma-1 Login
     v-spacer
 </template>
 
@@ -46,7 +46,7 @@ export default {
         this.$store.dispatch('logIn', { email: this.email, password: this.password })
       }
     }
-  },
+  }
 }
 </script>
 

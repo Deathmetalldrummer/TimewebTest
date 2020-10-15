@@ -33,6 +33,14 @@ const routes = [
     path: '/view/project/:projectID/page/:pageID',
     name: 'View',
     component: View
+  },
+  {
+    path: '/404',
+    redirect: '/'
+  },
+  {
+    path: '*',
+    redirect: '/404'
   }
 ]
 

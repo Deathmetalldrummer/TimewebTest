@@ -77,11 +77,7 @@ export default {
     },
     submitEdit (value) {
       if (value) {
-        this.cards.map(item => {
-          if (item.id === this.valueEdit.id) {
-            item.title = this.valueEdit.title
-          }
-        })
+        this.$store.dispatch('sitesUpdate', this.valueEdit)
         this.valueEdit = null
       }
       this.dialogEdit = false

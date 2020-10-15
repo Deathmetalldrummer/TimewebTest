@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import authStore from './auth'
+import firebase from 'firebase/app'
+import 'firebase/firestore'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -29,12 +31,21 @@ export default new Vuex.Store({
         pages: [],
         ...data
       })
+      firebase.firestore().collection('Users').doc(state.getters.currentUser).set({
+        sites: state.getters.sites
+      })
     },
     sitesDelete: (state, id) => {
       state.commit('sitesDelete', id)
+      firebase.firestore().collection('Users').doc(state.getters.currentUser).update({
+        sites: state.getters.sites
+      })
     },
     sitesUpdate: (state, data) => {
       state.commit('sitesUpdate', data)
+      firebase.firestore().collection('Users').doc(state.getters.currentUser).update({
+        sites: state.getters.sites
+      })
     },
     pagesAdd: (state, { id, data }) => {
       const site = state.getters.site(id)
@@ -72,8 +83,16 @@ export default new Vuex.Store({
         ...site,
         pages: site.pages
       })
+    },
+    loadContent: state => {
+      firebase.firestore().collection('Users').doc(state.getters.currentUser).get().then(respond => {
+        state.dispatch('sites', respond.data().sites)
+      }).catch(error => {
+        console.log(error)
+      })
     }
   },
   modules: {
+    authStore
   }
 })

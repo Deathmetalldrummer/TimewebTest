@@ -8,9 +8,9 @@
       :type="showPass ? 'text' : 'password'"
       )
     v-text-field(v-model='confirmPassword' :rules='[confirmPasswordRules,passMatches]' type='password' label='Confirm password' required)
-    v-btn(color='error' @click='reset') Reset Form
+    v-btn(color='error' @click='reset').ma-1 Reset Form
     //v-btn(color='warning' @click='resetValidation') Reset Validation
-    v-btn(:disabled='!valid' @click="submit") Login
+    v-btn(:disabled='!valid' @click="submit").ma-1 Login
     v-spacer
 </template>
 
