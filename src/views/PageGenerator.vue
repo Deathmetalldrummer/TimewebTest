@@ -25,7 +25,7 @@
               v-icon mdi-arrow-down
             v-btn(color="black" dark icon @click="swap(index, -1)").control__.control__up
               v-icon mdi-arrow-up
-          component(:is="item.name" @v-changed="item.data = $event, log($event, item)")
+          component(:is="item.name" @v-changed="item.data = $event")
       .text-center
         v-btn(color="black" dark @click="addBlock()").ma-1.align-center Add block
 </template>
@@ -45,7 +45,11 @@ export default {
   },
   computed: {
     projectID () { return this.$route.params.projectID },
-    pageID () { return this.$route.params.pageID }
+    pageID () { return this.$route.params.pageID },
+    block () { return this.$store.getters.blocks(this.projectID, this.pageID) || [] }
+  },
+  mounted () {
+    this.blocks = this.block
   },
   methods: {
     back () {
@@ -84,10 +88,11 @@ export default {
       ]
     },
     save () {
-      const xxx = setInterval(() => {
-        console.log('save')
-      }, 1000)
-      setTimeout(() => { clearInterval(xxx) }, 5000)
+      this.$store.dispatch('constructorUpdate', {
+        projectID: this.projectID,
+        pageID: this.pageID,
+        data: this.blocks
+      })
     },
     saveAndExit () {
       this.save()

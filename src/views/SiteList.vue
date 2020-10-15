@@ -51,11 +51,11 @@ export default {
       dialogDelete: false,
       valueCreate: null,
       valueEdit: null,
-      valueDelete: null,
-      cards: [
-        { title: 'Site #1', id: 1 }
-      ]
+      valueDelete: null
     }
+  },
+  computed: {
+    cards () { return this.$store.getters.sites }
   },
   methods: {
     openEdit (card) {
@@ -68,7 +68,7 @@ export default {
     },
     submitCreate (value) {
       if (value) {
-        this.cards.push({
+        this.$store.dispatch('sitesAdd', {
           title: this.valueCreate
         })
       }
@@ -88,7 +88,7 @@ export default {
     },
     submitDelete (value) {
       if (value) {
-        this.cards = this.cards.filter(item => item.id !== this.valueDelete.id)
+        this.$store.dispatch('sitesDelete', this.valueDelete.id)
       }
       this.dialogDelete = false
     }

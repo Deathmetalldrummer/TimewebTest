@@ -45,14 +45,12 @@ export default {
       dialogDelete: false,
       valueCreate: null,
       valueEdit: null,
-      valueDelete: null,
-      pages: [
-        { title: 'Page #1', id: 1 }
-      ]
+      valueDelete: null
     }
   },
   computed: {
-    projectID () { return this.$route.params.projectID }
+    projectID () { return this.$route.params.projectID },
+    pages () { return this.$store.getters.pages(this.projectID) }
   },
   methods: {
     openEdit (page) {
@@ -65,8 +63,11 @@ export default {
     },
     submitCreate (value) {
       if (value) {
-        this.pages.push({
-          title: this.valueCreate
+        this.$store.dispatch('pagesAdd', {
+          id: this.projectID,
+          data: {
+            title: this.valueCreate
+          }
         })
       }
       this.valueCreate = null
@@ -74,10 +75,9 @@ export default {
     },
     submitEdit (value) {
       if (value) {
-        this.pages.map(item => {
-          if (item.id === this.valueEdit.id) {
-            item.title = this.valueEdit.title
-          }
+        this.$store.dispatch('pagesUpdate', {
+          id: this.projectID,
+          data: this.valueEdit
         })
         this.valueEdit = null
       }
@@ -85,7 +85,10 @@ export default {
     },
     submitDelete (value) {
       if (value) {
-        this.pages = this.pages.filter(item => item.id !== this.valueDelete.id)
+        this.$store.dispatch('pagesDelete', {
+          id: this.projectID,
+          data: this.valueDelete.id
+        })
       }
       this.dialogDelete = false
     }
