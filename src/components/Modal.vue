@@ -1,5 +1,5 @@
 <template lang="pug">
-v-dialog(v-model='dialog' max-width='290')
+v-dialog(v-model='dialog' scrollable :max-width='width || 290')
   v-card
     v-card-title.headline {{title}}
     v-card-text
@@ -15,7 +15,7 @@ v-dialog(v-model='dialog' max-width='290')
 <script>
 export default {
   name: 'Modal',
-  props: ['model', 'title'],
+  props: ['model', 'title', 'width'],
   data () {
     return {
       message: 'Слава Одину, Modal работает!'

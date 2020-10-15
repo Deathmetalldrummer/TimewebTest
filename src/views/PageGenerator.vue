@@ -28,7 +28,7 @@
               v-icon mdi-arrow-down
             v-btn(color="black" dark icon @click="swap(index, -1)").control__.control__up
               v-icon mdi-arrow-up
-          component(:is="item.name" @v-changed="item.data = $event")
+          component(:is="item.name" :data='item.data' @v-changed="item.data = $event")
       .text-center
         v-btn(color="black" dark @click="addBlock()").ma-1
           v-icon mdi-plus
@@ -124,17 +124,15 @@ export default {
 .blocks
   border-bottom: 1px solid #ccc
 .blocks__
-  min-height: 100vh
   position: relative
-  display: flex
-  justify-content: center
-  align-items: center
   border-bottom: 1px dashed #ccc
   &:first-of-type
     border-top: 1px solid #ccc
+
   &control
     transition-duration: 0.3s
     opacity: 0
+
   &:hover
     .blocks__control
       opacity: 1
