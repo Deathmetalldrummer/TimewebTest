@@ -4,13 +4,16 @@ import 'firebase/firestore'
 
 export default {
   state: {
-    currentUser: null
+    currentUser: null,
+    error: ''
   },
   getters: {
-    currentUser: state => state.currentUser
+    currentUser: state => state.currentUser,
+    error: state => state.error
   },
   mutations: {
-    currentUser: (state, payload) => { state.currentUser = payload }
+    currentUser: (state, payload) => { state.currentUser = payload },
+    error: (state, payload) => { state.error = payload }
   },
   actions: {
     logIn: (state, payload) => {
@@ -19,6 +22,7 @@ export default {
           state.commit('currentUser', respond.user.uid)
         })
         .catch(error => {
+          state.commit('error', error.message)
           console.log(error)
         })
     },
@@ -28,6 +32,7 @@ export default {
           state.commit('currentUser', null)
         })
         .catch(error => {
+          state.commit('error', error.message)
           console.log(error)
         })
     },
@@ -38,6 +43,7 @@ export default {
           state.commit('currentUser', respond.user.uid)
         })
         .catch(error => {
+          state.commit('error', error.message)
           console.log(error)
         })
     },

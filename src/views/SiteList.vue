@@ -55,7 +55,7 @@ export default {
     }
   },
   computed: {
-    cards () { return this.$store.getters.sites }
+    cards () { return this.$store.getters.sites || [] }
   },
   methods: {
     openEdit (card) {

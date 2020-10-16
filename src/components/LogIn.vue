@@ -6,6 +6,7 @@
         @click:append="showPass = !showPass"
         :type="showPass ? 'text' : 'password'"
       )
+    p.subtitle-1.text-center.red--text.text--accent-4(v-if="error") {{error}}
     v-btn(color='error' @click='reset').ma-1 Reset Form
     //v-btn(color='warning' @click='resetValidation') Reset Validation
     v-btn(color='default' :disabled='!valid' @click="login").ma-1 Login
@@ -29,6 +30,9 @@ export default {
       v => (v && v.length >= 8 && v.length <= 128) || 'Password must be more than 8 characters and less than 128 characters'
     ]
   }),
+  computed: {
+    error () { return this.$store.getters.error }
+  },
   methods: {
     validate () {
       if (this.$refs.form.validate()) {

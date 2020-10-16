@@ -87,7 +87,7 @@ export default new Vuex.Store({
     },
     loadContent: state => {
       return firebase.firestore().collection('Users').doc(state.getters.currentUser).get().then(respond => {
-        state.dispatch('sites', respond.data().sites)
+        state.dispatch('sites', respond.data().sites || [])
         state.dispatch('globalLoading', false)
       }).catch(error => {
         console.log(error)

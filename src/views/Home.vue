@@ -1,8 +1,7 @@
 <template lang="pug">
   .home
-    v-btn(color="black" dark @click="link()") Open App
-    br
-    v-btn(color="black" dark @click="logout()") Log Out
+    v-btn(color="black" dark @click="link()").ma-3 Open App
+    v-btn(color="black" dark @click="logout()").ma-3 Log Out
 </template>
 
 <script>

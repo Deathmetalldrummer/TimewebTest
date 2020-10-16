@@ -1,5 +1,6 @@
 <template lang="pug">
   v-form(ref='form' v-model='valid' lazy-validation)
+    p.subtitle-1.text-center Аккаунт не верифицируется,поэтому можно использовать любой валидный email, если он не занят.Например: example@it.io
     v-text-field(v-model='name' :counter='"16"' :rules='nameRules' label='Name')
     v-text-field(v-model='email' :rules='emailRules' label='E-mail' required)
     v-text-field(v-model='password' :rules='passwordRules' label='Password' required
@@ -8,6 +9,7 @@
       :type="showPass ? 'text' : 'password'"
       )
     v-text-field(v-model='confirmPassword' :rules='[confirmPasswordRules,passMatches]' type='password' label='Confirm password' required)
+    p.subtitle-1.text-center.red--text.text--accent-4(v-if="error") {{error}}
     v-btn(color='error' @click='reset').ma-1 Reset Form
     //v-btn(color='warning' @click='resetValidation') Reset Validation
     v-btn(:disabled='!valid' @click="submit").ma-1 Login
@@ -40,7 +42,8 @@ export default {
   computed: {
     passMatches () {
       return () => (this.password === this.confirmPassword) || 'Password must match'
-    }
+    },
+    error () { return this.$store.getters.error }
   },
   methods: {
     validate () {
