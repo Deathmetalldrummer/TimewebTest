@@ -18,7 +18,7 @@
         v-radio-group.choice__(v-model="choiceBlock" row)
           v-radio(v-for="(item, index) in blocksName" :key="index" :label="item" color="red" :value="item")
       section.blocks
-        .blocks__(v-for="(item, index) in blocks")
+        .blocks__(v-for="(item, index) in blocks" :id="'section_' + index")
           .blocks__control.control
             v-btn(color="black" dark icon @click="duplicate(index)").control__.control__duplicate
               v-icon mdi-content-copy
@@ -143,8 +143,11 @@ export default {
   align-items: center
 .choice__
 .control
+  background-color: #fff
+  border-radius: 2em
   position: absolute
   top: 1em
   right: 1em
+  z-index: 9999999
   &__
 </style>

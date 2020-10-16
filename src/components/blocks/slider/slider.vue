@@ -1,6 +1,6 @@
 <template lang="pug">
 v-carousel(height="100vh" v-model="slideModel").carousel
-  v-btn(color="white" fab dark @click.prevent.stop="slideDelete()" v-if="slides && slides.length").carousel__delete
+  v-btn(color="white" fab dark @click.prevent.stop="slideDelete()" v-if="slides && slideModel < slides.length").carousel__delete
     v-icon(dark color="red accent-4") mdi-delete
   v-carousel-item(v-for='(slide, i) in slides' :key="i" :src="slide" @click="openModal()")
   v-carousel-item(@click="openModal(true)" :key="slides.length")

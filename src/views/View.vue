@@ -1,7 +1,7 @@
 <template lang="pug">
 section.blocks
-  .blocks__(v-for="(item, index) in blocks")
-    component(:is="item.name")
+  .blocks__(v-for="(item, index) in blocks" :id="'section_' + index")
+    component(:is="item.name" :data="item.data")
 </template>
 
 <script>
