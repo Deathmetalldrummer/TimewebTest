@@ -152,6 +152,6 @@ export default {
   position: absolute
   top: 1em
   right: 1em
-  z-index: 9999999
+  z-index: 9
   &__
 </style>

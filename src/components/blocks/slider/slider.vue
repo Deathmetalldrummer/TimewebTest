@@ -37,7 +37,7 @@ export default {
   methods: {
     submit ($event) {
       this.dialog = false
-      if ($event) {
+      if ($event && this.activeSlide) {
         if (this.typeModal) {
           this.slides.push(`https://picsum.photos/id/2${this.activeSlide}/1280/1024`)
         } else {
