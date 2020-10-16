@@ -14,14 +14,19 @@ div
           v-list-item-content
             v-list-item-title {{item.title}}
           v-list-item-action
+            v-btn(icon @click.prevent="openInNew(item)")
+              v-icon(color='grey') mdi-eye
+          v-list-item-action
             v-btn(icon @click.prevent="openEdit(item)")
               v-icon(color='grey') mdi-pencil
           v-list-item-action
             v-btn(icon @click.prevent="openDelete(item)")
               v-icon(color='grey') mdi-delete
   Modal(title="Create page" :model="dialogCreate" @submit="submitCreate($event)")
+    br
     v-text-field(label='Name' outlined v-model="valueCreate" )
   Modal(title="Update page" :model="dialogEdit" @submit="submitEdit($event)")
+    br
     v-text-field(label='Name' outlined v-model="valueEdit && valueEdit.title" )
   Modal(title="Delete page" :model="dialogDelete" @submit="submitDelete($event)")
     p Delete this page "{{valueDelete && valueDelete.title}}"?
@@ -91,6 +96,9 @@ export default {
         })
       }
       this.dialogDelete = false
+    },
+    openInNew (item) {
+      this.$router.push({ name: 'View', params: { projectID: this.projectID.toString(), pageID: item.id.toString() } })
     }
   }
 }

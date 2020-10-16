@@ -11,9 +11,9 @@ export default {
   data () {
     return {
       message: 'Слава Одину, HeaderView работает!',
-      title: this.$props.data.title,
-      subtitle: this.$props.data.subtitle,
-      srcBG: { backgroundImage: `url(${this.$props.data.srcBG})` }
+      title: this.$props.data && this.$props.data.title,
+      subtitle: this.$props.data && this.$props.data.subtitle,
+      srcBG: { backgroundImage: `url(${this.$props.data && this.$props.data.srcBG})` }
     }
   }
 }

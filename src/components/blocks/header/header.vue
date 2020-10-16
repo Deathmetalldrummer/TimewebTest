@@ -36,6 +36,9 @@ export default {
   computed: {
     style () { return { backgroundImage: `url(${this.srcBG})` } }
   },
+  mounted () {
+    this.submit()
+  },
   methods: {
     submit ($event) {
       this.$emit('v-changed', {

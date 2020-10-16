@@ -17,6 +17,9 @@ export default {
       text: this.$props.data || 'Слава Одину, TextComponent работает!'
     }
   },
+  mounted () {
+    this.submit()
+  },
   methods: {
     submit ($event) {
       this.$emit('v-changed', this.text)

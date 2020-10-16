@@ -31,6 +31,9 @@ export default {
       dialog: false
     }
   },
+  mounted () {
+    this.submit(true)
+  },
   methods: {
     submit ($event) {
       this.dialog = false

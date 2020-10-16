@@ -37,6 +37,9 @@ export default {
       menu: (this.$props.data && this.$props.data.menu) || []
     }
   },
+  mounted () {
+    this.submit()
+  },
   methods: {
     submit ($event) {
       this.$emit('v-changed', {
