@@ -8,15 +8,17 @@
           v-btn(color="light-green accent-3" outlined @click="save()").ma-1 Save
           v-btn(color="yellow accent-4" outlined @click="saveAndExit()").ma-1 Save & Exit
         .header__.text-center
-          v-btn(color="black" dark @click="addBlock()").ma-1
-            v-icon mdi-plus
-            span.ml-1 Add block
+          v-menu(offset-y='')
+            template(v-slot:activator='{ on, attrs }')
+              v-btn(color="black" dark v-on="on").ma-1
+                v-icon mdi-plus
+                span.ml-1 Add block
+            v-list
+              v-list-item(v-for='(item, index) in blocksName' :key='index' link @click="addBlock(item)")
+                v-list-item-title {{ item }}
         .header__.text-right
           v-btn(color="blue accent-2" outlined @click="view()").ma-1 View
           v-btn(color="red accent-4" outlined @click="exit()").ma-1 Exit
-      section.choice
-        v-radio-group.choice__(v-model="choiceBlock" row)
-          v-radio(v-for="(item, index) in blocksName" :key="index" :label="item" color="red" :value="item")
       section.blocks
         .blocks__(v-for="(item, index) in blocks" :id="'section_' + index")
           .blocks__control.control
@@ -30,9 +32,14 @@
               v-icon mdi-arrow-up
           component(:is="item.name" :data='item.data' @v-changed="item.data = $event")
       .text-center
-        v-btn(color="black" dark @click="addBlock()").ma-1
-          v-icon mdi-plus
-          span.ml-1 Add block
+        v-menu(offset-y='')
+          template(v-slot:activator='{ on, attrs }')
+            v-btn(color="black" dark v-on="on").ma-1
+              v-icon mdi-plus
+              span.ml-1 Add block
+          v-list
+            v-list-item(v-for='(item, index) in blocksName' :key='index' link @click="addBlock(item)")
+              v-list-item-title {{ item }}
 </template>
 
 <script>
@@ -44,8 +51,7 @@ export default {
     return {
       message: 'Слава Одину, PageGenerator работает!',
       blocks: [],
-      blocksName: Object.keys(components),
-      choiceBlock: ''
+      blocksName: Object.keys(components)
     }
   },
   computed: {
@@ -60,13 +66,11 @@ export default {
     back () {
       this.$router.push({ name: 'project', params: { projectID: this.projectID.toString() } })
     },
-    addBlock () {
-      if (this.choiceBlock) {
-        this.blocks.push({
-          name: this.choiceBlock,
-          data: null
-        })
-      }
+    addBlock (item) {
+      this.blocks.push({
+        name: item,
+        data: null
+      })
     },
     swap (index, step) {
       const arr = [...this.blocks]
