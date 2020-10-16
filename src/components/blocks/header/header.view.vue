@@ -30,6 +30,9 @@ export default {
   color: #fff
   position: relative
   text-align: center
+  background-repeat: no-repeat
+  background-size: cover
+  background-position: center
 .header__title
   position: relative
   z-index: 10

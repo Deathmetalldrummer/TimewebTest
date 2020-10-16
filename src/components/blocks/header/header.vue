@@ -67,6 +67,9 @@ export default {
   color: #fff
   position: relative
   text-align: center
+  background-repeat: no-repeat
+  background-size: cover
+  background-position: center
 .header__overlay
   position: absolute
   top: 0
