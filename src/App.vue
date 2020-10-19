@@ -1,25 +1,11 @@
 <template lang="pug">
-  v-app#app(v-if="globalLoading")
-    Auth(v-if="!isAuth")
-    router-view(v-else)
+v-app#app
+  router-view
 </template>
 
 <script>
-import Auth from '@/views/Auth'
-
 export default {
-  name: 'App',
-  components: {
-    Auth
-  },
-  data: () => ({
-    //
-  }),
-  computed: {
-    isAuth () { return !!this.$store.getters.currentUser },
-    globalLoading () { return !this.$store.getters.globalLoading }
-
-  }
+  name: 'App'
 }
 </script>
 <style lang="sass">

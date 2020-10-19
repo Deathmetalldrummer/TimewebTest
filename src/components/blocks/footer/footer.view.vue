@@ -2,7 +2,7 @@
 footer.footer
   ul.footer__menu
     li.footer__(v-for="item in menu")
-      a(:href="item.link" :alt="item.alt").footer__menuLink {{item.name}}
+      a(:href="item.link").footer__menuLink {{item.name}}
   p.footer__copyright(v-html='copyright')
 </template>
 

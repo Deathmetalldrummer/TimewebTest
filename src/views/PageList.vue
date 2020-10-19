@@ -7,27 +7,27 @@ div
   .ml-4(v-if="!pages.length") Empty
   v-card(tile v-else)
     v-list
-      v-list-item-group(color='dark')
-        v-list-item(v-for='(item, i) in pages' :key='i' :to="{name: 'PageGenerator', params: {projectID, pageID: item.id}}")
+      v-list-item-group(color="dark")
+        v-list-item(v-for="(item, i) in pages" :key="i" :to="{name: 'PageGenerator', params: {projectID, pageID: item.id}}")
           v-list-item-icon
             v-icon mdi-home
           v-list-item-content
             v-list-item-title {{item.title}}
           v-list-item-action
             v-btn(icon @click.prevent="openInNew(item)")
-              v-icon(color='grey') mdi-eye
+              v-icon(color="grey") mdi-eye
           v-list-item-action
             v-btn(icon @click.prevent="openEdit(item)")
-              v-icon(color='grey') mdi-pencil
+              v-icon(color="grey") mdi-pencil
           v-list-item-action
             v-btn(icon @click.prevent="openDelete(item)")
-              v-icon(color='grey') mdi-delete
+              v-icon(color="grey") mdi-delete
   Modal(title="Create page" :model="dialogCreate" @submit="submitCreate($event)")
     br
-    v-text-field(label='Name' outlined v-model="valueCreate" )
+    v-text-field(label="Name" outlined v-model="valueCreate" )
   Modal(title="Update page" :model="dialogEdit" @submit="submitEdit($event)")
     br
-    v-text-field(label='Name' outlined v-model="valueEdit && valueEdit.title" )
+    v-text-field(label="Name" outlined v-model="valueEdit && valueEdit.title" )
   Modal(title="Delete page" :model="dialogDelete" @submit="submitDelete($event)")
     p Delete this page "{{valueDelete && valueDelete.title}}"?
 </template>
@@ -68,7 +68,7 @@ export default {
     },
     submitCreate (value) {
       if (value) {
-        this.$store.dispatch('pagesAdd', {
+        this.$store.dispatch('pageCreate', {
           id: this.projectID,
           data: {
             title: this.valueCreate
@@ -90,7 +90,7 @@ export default {
     },
     submitDelete (value) {
       if (value) {
-        this.$store.dispatch('pagesDelete', {
+        this.$store.dispatch('pageDelete', {
           id: this.projectID,
           data: this.valueDelete.id
         })

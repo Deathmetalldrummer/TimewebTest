@@ -12,7 +12,6 @@ footer.footer
     br
     v-text-field(v-model="newLink.name" label="name" outlined)
     v-text-field(v-model="newLink.link" label="link" outlined)
-    v-text-field(v-model="newLink.alt" label="alt" outlined)
     v-btn(block color="red accent-4" dark @click="linkDelete") Delete
 </template>
 
@@ -33,7 +32,7 @@ export default {
       copyright: (this.$props.data && this.$props.data.copyright) || '© All Rights Reserved. Ragnarok Publishing Design',
       dialog: false,
       updatingLinkIndex: null,
-      newLink: { link: '', name: '', alt: '' },
+      newLink: { link: '', name: '' },
       menu: (this.$props.data && this.$props.data.menu) || []
     }
   },
@@ -70,7 +69,7 @@ export default {
       this.stateReset()
     },
     stateReset () {
-      this.newLink = { link: '', name: '', alt: '' }
+      this.newLink = { link: '', name: '' }
       this.updatingLinkIndex = null
       this.dialog = false
     }

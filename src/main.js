@@ -22,17 +22,5 @@ new Vue({
   router,
   store,
   vuetify,
-  render: h => h(App),
-  created: () => {
-    firebase.auth().onAuthStateChanged(
-      user => {
-        if (user) {
-          store.dispatch('currentUser', user.uid)
-          store.dispatch('loadContent')
-        } else {
-          store.dispatch('globalLoading', false)
-        }
-      }
-    )
-  }
-}).$mount('#app')
+  render: h => h(App)
+}).$mount('#vue')

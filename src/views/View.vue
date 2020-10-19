@@ -1,7 +1,7 @@
 <template lang="pug">
 section.blocks
-  .blocks__(v-for="(item, index) in blocks" :id="'section_' + index")
-    component(:is="item.name" :data="item.data")
+  .blocks__(v-for="(block, index) in blocks" :id="'section_' + index")
+    component(:is="block.name" :data="block.data")
 </template>
 
 <script>
@@ -19,10 +19,10 @@ export default {
   computed: {
     projectID () { return this.$route.params.projectID },
     pageID () { return this.$route.params.pageID },
-    block () { return this.$store.getters.blocks(this.projectID, this.pageID) || [] }
+    page () { return this.$store.getters.page(this.projectID, this.pageID) || {} }
   },
   mounted () {
-    this.blocks = this.block
+    this.blocks = this.page && this.page.content
   }
 }
 </script>

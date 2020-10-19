@@ -9,10 +9,10 @@ div
     .siteList(v-else)
       .siteList__(v-for="(card, index) in cards")
         v-card(:to="{name: 'project', params: {projectID: card.id}}").card
-          v-img.white--text.align-end(:src='"https://picsum.photos/200/300?random=" + index'
-            gradient='to bottom, rgba(0,0,0,.2), rgba(0,0,0,.6)'
-            height='200px')
-            v-card-title(v-text='card.title')
+          v-img.white--text.align-end(:src="'https://picsum.photos/200/300?random=' + index"
+            gradient="to bottom, rgba(0,0,0,.2), rgba(0,0,0,.6)"
+            height="200px")
+            v-card-title(v-text="card.title")
           v-card-actions
             v-btn(text @click.prevent="openEdit(card)")
               v-icon(small) mdi-pencil
@@ -23,10 +23,10 @@ div
               span.ml-1 Delete
   Modal(title="Create site" :model="dialogCreate" @submit="submitCreate($event)")
     br
-    v-text-field(label='Name' outlined v-model="valueCreate" )
+    v-text-field(label="Name" outlined v-model="valueCreate" )
   Modal(title="Update site" :model="dialogEdit" @submit="submitEdit($event)")
     br
-    v-text-field(label='Name' outlined v-model="valueEdit && valueEdit.title" )
+    v-text-field(label="Name" outlined v-model="valueEdit && valueEdit.title" )
   Modal(title="Delete site" :model="dialogDelete" @submit="submitDelete($event)")
     p Delete this site "{{valueDelete && valueDelete.title}}"?
 </template>
@@ -66,7 +66,7 @@ export default {
     },
     submitCreate (value) {
       if (value) {
-        this.$store.dispatch('sitesAdd', {
+        this.$store.dispatch('siteCreate', {
           title: this.valueCreate
         })
       }
@@ -82,7 +82,7 @@ export default {
     },
     submitDelete (value) {
       if (value) {
-        this.$store.dispatch('sitesDelete', this.valueDelete.id)
+        this.$store.dispatch('siteDelete', this.valueDelete.id)
       }
       this.dialogDelete = false
     }

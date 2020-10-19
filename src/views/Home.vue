@@ -1,11 +1,10 @@
 <template lang="pug">
-  .home
-    v-btn(color="black" dark @click="link()").ma-3 Open App
-    v-btn(color="black" dark @click="logout()").ma-3 Log Out
+.home
+  v-btn(color="black" dark @click="link()").ma-3 Open App
+  v-btn(color="black" dark @click="logout()").ma-3 Log Out
 </template>
 
 <script>
-
 export default {
   name: 'Home',
   methods: {

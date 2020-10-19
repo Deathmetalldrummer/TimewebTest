@@ -1,3 +1,4 @@
+import router from '../router'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
@@ -30,6 +31,7 @@ export default {
       firebase.auth().signOut()
         .then(respond => {
           state.commit('currentUser', null)
+          router.push({ name: 'Auth' })
         })
         .catch(error => {
           state.commit('error', error.message)

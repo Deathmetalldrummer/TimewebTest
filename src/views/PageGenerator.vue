@@ -17,6 +17,7 @@
               v-list-item(v-for='(item, index) in blocksName' :key='index' link @click="addBlock(item)")
                 v-list-item-title {{ item }}
         .header__.text-right
+          v-btn(color="blue accent-2" outlined @click="pub()").ma-1 Public
           v-btn(color="blue accent-2" outlined @click="view()").ma-1 View
           v-btn(color="red accent-4" outlined @click="exit()").ma-1 Exit
       section.blocks
@@ -40,27 +41,58 @@
           v-list
             v-list-item(v-for='(item, index) in blocksName' :key='index' link @click="addBlock(item)")
               v-list-item-title {{ item }}
+      Modal(title="Public info" width="40%" :model="dialog" @submit="dialog = false")
+        br
+        a(:href="win" target="_blank" v-if="isPublic").body-1 {{win}}
+        v-btn(:color="publicButtonColor.color" dark block @click="onPublic").mt-8
+          span.ml-1 {{publicButtonColor.text}}
 </template>
 
 <script>
 import * as components from '@/components/blocks/'
+import Modal from '@/components/Modal'
+
 export default {
   name: 'PageGenerator',
-  components: { ...components },
+  components: { ...components, Modal },
   data () {
     return {
       message: 'Слава Одину, PageGenerator работает!',
       blocks: [],
-      blocksName: Object.keys(components)
+      dialog: false,
+      blocksName: Object.keys(components),
+      isPublic: false,
+      page: {}
     }
   },
   computed: {
     projectID () { return this.$route.params.projectID },
     pageID () { return this.$route.params.pageID },
-    block () { return this.$store.getters.blocks(this.projectID, this.pageID) || [] }
-  },
-  mounted () {
-    this.blocks = this.block
+    getPage () { return this.$store.getters.page(this.projectID, this.pageID) },
+    win () { return window.location.origin + '/public/' + this.page.publicID },
+    payload () {
+      return {
+        projectID: this.projectID,
+        pageID: this.pageID,
+        payload: {
+          ...this.page,
+          content: this.blocks,
+          public: this.isPublic
+        }
+      }
+    },
+    publicButtonColor () {
+      if (this.isPublic) {
+        return {
+          color: 'red accent-4',
+          text: 'Unpublic'
+        }
+      }
+      return {
+        color: 'light-green accent-3',
+        text: 'Public'
+      }
+    }
   },
   methods: {
     back () {
@@ -97,11 +129,10 @@ export default {
       ]
     },
     save () {
-      this.$store.dispatch('constructorUpdate', {
-        projectID: this.projectID,
-        pageID: this.pageID,
-        data: this.blocks
-      })
+      if (this.page && this.page.id) {
+        this.$store.dispatch('pageUpdate', this.payload)
+        this.publicUpdate()
+      }
     },
     saveAndExit () {
       this.save()
@@ -110,8 +141,38 @@ export default {
     exit () {
       this.back()
     },
+    pub () {
+      this.dialog = true
+    },
+    onPublic () {
+      if (this.page && this.page.id) {
+        this.isPublic = !this.isPublic
+        this.publicUpdate()
+      }
+    },
+    publicUpdate () {
+      if (this.page.publicID) {
+        this.$store.dispatch('publicUpdate', this.payload)
+      } else {
+        this.$store.dispatch('publicCreate', this.payload)
+      }
+    },
     view () {
       this.$router.push({ name: 'View', params: { projectID: this.projectID.toString(), pageID: this.pageID.toString() } })
+    }
+  },
+  mounted () {
+    this.page = this.getPage
+    this.blocks = this.page && this.page.content
+  },
+  watch: {
+    getPage (value) {
+      console.log('2 page is', value)
+      this.page = value
+      this.blocks = value && value.content
+      if (this.page && this.page.public) {
+        this.isPublic = this.page.public
+      }
     }
   }
 }

@@ -7,6 +7,10 @@ export default {
   },
   mutations: {
     globalLoading: (state, payload) => {
+      if (!payload) {
+        const elLoading = document.getElementById('loading')
+        if (elLoading) elLoading.remove()
+      }
       state.globalLoading = payload
     }
   },

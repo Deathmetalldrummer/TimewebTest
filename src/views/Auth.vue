@@ -21,7 +21,10 @@ export default {
   components: { LogIn, SignUp },
   data: () => ({
     tabs: 'tab-1'
-  })
+  }),
+  mounted () {
+    this.$store.dispatch('globalLoading', false)
+  }
 }
 </script>
 
